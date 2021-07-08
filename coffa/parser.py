@@ -6,12 +6,23 @@ from .tokenizer import Token
 
 
 def _convert_nodes_to_dict(item):
+    """
+    This function is used to convert every node
+    in the tree to a dictionary that can be
+    outputted using json.dumps
+    """
+
+    # If the item is a node
     if type(item) is Node:
+        # Convert the node to dictionary
         item = { "type": item.type, **item.options }
         
+        # Convert child nodes if there are any
         for key, value in item.items():
             item[key] = _convert_nodes_to_dict(value)
+    # Else if the item is a list
     elif type(item) is list:
+        # Call this function on every child node
         item = list(map(_convert_nodes_to_dict, item))
     
     return item
