@@ -20,7 +20,10 @@ class Token():
     value: str
 
 
-def tokenize(string: str) -> Generator[Token, None, None]:
+def tokenize(
+    string: str,
+    skip_whitespace: bool = True
+) -> Generator[Token, None, None]:
     # while there is input left
     while len(string) > 0:
         found_match = False
@@ -36,8 +39,10 @@ def tokenize(string: str) -> Generator[Token, None, None]:
                 value = match.group()
 
                 found_match = True
-                # yield our token
-                yield Token(rule, value)
+
+                if not (rule == "Whitespace" and skip_whitespace):
+                    # yield our token
+                    yield Token(rule, value)
 
                 # remove tokenized part of our string
                 string = string[len(value):]
