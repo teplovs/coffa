@@ -3,6 +3,7 @@
 import re
 
 from dataclasses import dataclass
+from typing import Generator
 
 
 rules = {
@@ -19,7 +20,7 @@ class Token():
     value: str
 
 
-def tokenize(string: str):
+def tokenize(string: str) -> Generator[Token, None, None]:
     # while there is input left
     while len(string) > 0:
         found_match = False
