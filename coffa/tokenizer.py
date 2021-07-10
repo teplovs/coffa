@@ -10,20 +10,17 @@ rules = {
     "Number": r"(0|[1-9][0-9]*)(\.[0-9]+)?",
     "Operator": r"\+|\-|\*|\/|\%",
     "Whitespace": r"[ \t]+",
-    "Newline": r"(\r?\n[ \t]*)+"
+    "Newline": r"(\r?\n[ \t]*)+",
 }
 
 
 @dataclass
-class Token():
+class Token:
     type: str
     value: str
 
 
-def tokenize(
-    string: str,
-    skip_whitespace: bool = True
-) -> Generator[Token, None, None]:
+def tokenize(string: str, skip_whitespace: bool = True) -> Generator[Token, None, None]:
     # while there is input left
     while len(string) > 0:
         found_match = False
@@ -45,7 +42,7 @@ def tokenize(
                     yield Token(rule, value)
 
                 # remove tokenized part of our string
-                string = string[len(value):]
+                string = string[len(value) :]
 
         if not found_match:
             raise SyntaxError(f'Unexpected character "{string[0]}"')
