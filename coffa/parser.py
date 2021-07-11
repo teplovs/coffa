@@ -6,6 +6,11 @@ from .tokenizer import Token
 from typing import Union
 
 
+def unescape(string: str) -> str:
+    # TODO
+    return string
+
+
 def _convert_nodes_to_dict(item):
     """
     This function is used to convert every node
@@ -66,7 +71,18 @@ class Parser:
 
         # TODO: check for unary operations
         # TODO: add support for strings, lists and dictionaries
-        return self.parse_number()
+
+        if self.peek("String"):
+            return self.parse_string()
+        elif self.peek("Number"):
+            return self.parse_number()
+        else:
+            # TODO: improve error message
+            raise SyntaxError("Expected a string or a number")
+
+    def parse_string(self):
+        token = self.consume("String")
+        return Node("String", value=unescape(token.value))
 
     def parse_number(self):
         token = self.consume("Number")

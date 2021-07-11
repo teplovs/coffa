@@ -7,6 +7,7 @@ from typing import Generator
 
 
 rules = {
+    "String": r"\"([^\"\\]|\.)*\"|'([^'\\]|\.)*'",
     "Number": r"(0|[1-9][0-9]*)(\.[0-9]+)?",
     "Operator": r"\+|\-|\*|\/|\%",
     "Whitespace": r"[ \t]+",
